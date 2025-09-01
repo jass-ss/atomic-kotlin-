@@ -5,5 +5,5 @@ package org.example
 fun main() {
     //coreDrill()
     winningScore();
-    //winningScore_answer()
+    winningScore_answer()
 }
