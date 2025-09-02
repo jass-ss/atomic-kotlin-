@@ -29,7 +29,7 @@ fun trik_answer (){
     val n = input.readLine()
     if(n.length !in 1..50) throw Throwable("out of range 1..50 n.length: ${n.length}")
 
-    var i = 0;
+    var i = 0
     while(i < n.length){
         if(n[i] !in "ABC")  throw Throwable("invalid char n[${i}]: ${n[i]}")
         i++
