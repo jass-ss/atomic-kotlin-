@@ -43,7 +43,7 @@ fun tarifa(){
         i++
     }
 
-    var nextMonth = megabytes + left
+    val nextMonth = megabytes + left
 
     output.write("$nextMonth")
     output.flush()
