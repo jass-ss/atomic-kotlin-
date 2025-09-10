@@ -1,4 +1,7 @@
 package org.example
+
+import kotlin.math.abs
+
 /*
 In the country of Voronoi, there are N villages,located at distinct points on a straight road.
 Each of these villages will be represented by an integer position along this road.
@@ -12,28 +15,27 @@ On the next N ines there will be one integer per line,
 where the I line will contain the integer V the position of the I village -1000000000<=V<=1000000000.
 Output the smallest neighbourhood size with exactly one digit after the decimal point.
  */
-fun ccc18s1() {
+fun ccc18s1_answer() {
     val input = System.`in`.bufferedReader()
     val output = System.out.bufferedWriter()
 
-    val length = input.readLine().toIntOrNull()?:throw Throwable("invaild int")
-    if(length !in 3..100)throw Throwable("out of range")
+    val N = input.readLine().toIntOrNull()?:throw Throwable("invalid int N")
+    if(N !in 3..100)throw Throwable("out of range 3..100 N:$N")
 
     val list = mutableListOf<Int>()
-    for(i in 0..<length){
-        val position = input.readLine().toIntOrNull()?:throw Throwable("invaild int")
-        list.add(position)
+    var i = 0
+    while(i < N){
+        val V = input.readLine().toIntOrNull() ?: throw Throwable("invalid int V")
+        if(V !in -1_000_000_000..10_0000_0000) throw Throwable("out of range -1m..1m V: $V")
+        list.add(V)
+        i++
     }
-
     list.sort()
-    val sizeList = mutableListOf<Double>()
-    for(i in 1..<list.lastIndex){
-        val left = (list[i] - list[i-1] ).toDouble() / 2.0
-        val right = (list[i+1] - list[i] ).toDouble() / 2.0
-        val size = left + right
-        sizeList.add(size)
+
+    val size = mutableListOf<Double>()
+    for(i in 1..< list.lastIndex){
+        size.add(abs(list[i+1] - list[i-1]).toDouble() / 2.0)
     }
-    sizeList.sort()
-    output.write( "%.1f".format(sizeList[0]))
-    output.flush()
+    size.sort()
+    println("%.1f".format(size[0]))
 }
