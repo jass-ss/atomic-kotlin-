@@ -41,8 +41,8 @@ fun ecoo17r1p1(){
 
         if(allY != total){
             val left = Math.abs(total-allY)
-            var maxY = YList.max()
-            var maxYIndex = YList.indexOf(maxY)
+            val maxY = YList.max()
+            val maxYIndex = YList.indexOf(maxY)
             YList[maxYIndex] = maxY + left
         }
 
