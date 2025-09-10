@@ -28,7 +28,7 @@ fun ecoo17r1p1(){
         var allY = 0
         val YList = mutableListOf<Int>()
         val total = input.readLine().toIntOrNull()?:throw Throwable("")
-        if(total !in 4..200)throw Throwable("")
+        if(total !in 4..2000)throw Throwable("")
 
 
         val i = 0
@@ -39,7 +39,7 @@ fun ecoo17r1p1(){
             YList.add(student)
         }
 
-        if(allY !== total){
+        if(allY != total){
             val left = Math.abs(total-allY)
             var maxY = YList.max()
             var maxYIndex = YList.indexOf(maxY)
@@ -62,6 +62,4 @@ fun ecoo17r1p1(){
             }
         }
     }
-
-
 }
