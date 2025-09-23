@@ -15,46 +15,57 @@ fun ecoo17r3p1() {
     val input = System.`in`.bufferedReader()
     val output = System.out.bufferedWriter()
 
-    var i = 1
-    val result = MutableList(2) { 0 }
-    while(i <= 2){
+    var dataset = 0
+    val result = mutableListOf<Int>()
+    while(dataset < 10){
+        result.add(0)
         val info = input.readLine().split(" ")
         val franchise = info[0].toIntOrNull()?: throw Throwable("invalid int")
         if(franchise !in 4..130) throw Throwable("out of range: franchise")
         val days = info[1].toIntOrNull()?: throw Throwable("invalid int")
         if(days !in 2..4745) throw Throwable("out of range: days")
 
+        //각 franchise가 행사동안 판매한 총량 리스트 초기화
+        val totalFranchiseGoods = mutableListOf<Int>()
+        for(i in 1..franchise){
+            totalFranchiseGoods.add(0)
+        }
         //days 만큼 반복문을 돌면서,
         // 1. franchise의 각 요소들을 더해서 13배수인지 확인
         // 2. days[franchise]의 값을 모두 더해서 13배수인지 확인
-        var d = 1
-        var totalFranchiseGoods = MutableList(franchise) { 0 }
-        while( d <= days){
+        var d = 0
+        while(d <days){
+            var totalDayGoods = 0
             val goodsPerDay = input.readLine().split(" ")
-            var totalGoodsPerDay = 0
-            var k = 0
-            while ( k <= goodsPerDay.lastIndex){
-                val g = goodsPerDay[k].toIntOrNull()?: throw Throwable("invalid int: goods")
-                if(g !in 1..13000)throw Throwable("out of range: goods per a day")
-                totalGoodsPerDay += g
-                totalFranchiseGoods[k] += g
-                k++
-            }
-            if(totalGoodsPerDay % 13 == 0){ //13의 배수인 경우에만
-                val bonus = totalGoodsPerDay / 13 //13의 배수만 나누기 13 하므로 무조건 양의 정수.
-                result[i] += bonus
-            }
 
-            for(j in 0..totalFranchiseGoods.lastIndex){
-                val franchise = totalFranchiseGoods[j]
-                if(franchise % 13 == 0){ //13의 배수인 경우에만
-                    val bonus = franchise / 13 //13의 배수만 나누기 13 하므로 무조건 양의 정수.
-                    result[i] += bonus
-                }
+            var f = 0
+            while (f < franchise){
+                val goods = goodsPerDay[f].toIntOrNull()?:throw Throwable("out of range: goodsPerDay:$goodsPerDay")
+                totalDayGoods += goods
+                totalFranchiseGoods[f] += goods
+                f++
+            }
+            if(totalDayGoods % 13 == 0){
+                val bonus = totalDayGoods / 13
+                result[dataset] += bonus
             }
             d++
         }
-        i++
+
+        for(j in 0..totalFranchiseGoods.lastIndex){
+            val franchise = totalFranchiseGoods[j]
+            if(franchise % 13 == 0){ //13의 배수인 경우에만
+                val bonus = franchise / 13 //13의 배수만 나누기 13 하므로 무조건 양의 정수.
+                result[dataset] += bonus
+            }
+        }
+
+        dataset++
     }
 
+    for(i in 0..9){
+        println(result[i])
+    }
 }
+
+
