@@ -46,19 +46,23 @@ fun ecoo19r2p1(){
 
     val result = mutableListOf<Int>()
 
-    for(i in 1..10){
+    var i = 1
+    while(i <= 10){
         val n = input.readLine().toIntOrNull()?:throw Throwable("invalid int")
         if(n !in 1..100000)throw Throwable("out of range")
 
         var uniqueEmails = mutableSetOf<String>()
 
-        for(i in 1..n){
+        var c = 1
+        while(c <= n){
             val email = input.readLine()
             if(email.isEmpty() || email.length > 30) throw Throwable("out of email range")
             uniqueEmails.add(normalizeEmail(email))
+            c++
         }
         //println(uniqueEmails)
         result.add(uniqueEmails.size)
+        i++
     }
 
     for(i in result){
