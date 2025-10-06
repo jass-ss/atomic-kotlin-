@@ -36,7 +36,6 @@ fun normalizeEmail(email:String):String{
     for (t in removePlusStr){
         if(t != '.') normalized += t
     }
-
     return normalized +"@"+ afterAtSign
 }
 
