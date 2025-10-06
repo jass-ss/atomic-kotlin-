@@ -16,6 +16,7 @@ package org.example
 fun normalizeEmail(email:String):String{
     val lowerEmail = email.lowercase()
     val beforeAtSign = lowerEmail.split("@")[0]
+    val afterAtSign = lowerEmail.split("@")[1]
 
     //+인 경우 +부터 @전까지 무시
     var i = 0
@@ -35,17 +36,32 @@ fun normalizeEmail(email:String):String{
     for (t in removePlusStr){
         if(t != '.') normalized += t
     }
-    //println(normalized)
-    return normalized
+
+    return normalized +"@"+ afterAtSign
 }
 
 fun ecoo19r2p1(){
     val input = System.`in`.bufferedReader()
     val output = System.out.bufferedWriter()
 
-    for(i in 1..4){
-        val str = input.readLine()
-        if(i != 1)normalizeEmail(str)
+    val result = mutableListOf<Int>()
+
+    for(i in 1..10){
+        val n = input.readLine().toIntOrNull()?:throw Throwable("invalid int")
+        if(n !in 1..100000)throw Throwable("out of range")
+
+        var uniqueEmails = mutableSetOf<String>()
+
+        for(i in 1..n){
+            val email = input.readLine()
+            if(email.isEmpty() || email.length > 30) throw Throwable("out of email range")
+            uniqueEmails.add(normalizeEmail(email))
+        }
+        //println(uniqueEmails)
+        result.add(uniqueEmails.size)
     }
 
+    for(i in result){
+        println(i)
+    }
 }
